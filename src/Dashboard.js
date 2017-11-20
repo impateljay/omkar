@@ -176,12 +176,12 @@ class Dashboard extends React.Component {
               <IconButton color="contrast" aria-label="open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.hide)} >
                 <MenuIcon />
               </IconButton>
-              <Typography type="title" color="inherit" noWrap>Persistent drawer</Typography>
+              <Typography type="title" color="inherit" noWrap>Omkar Electricals</Typography>
             </Toolbar>
           </AppBar>
           {before}
           <main className={classNames(classes.content, classes[`content-${anchor}`], {[classes.contentShift]: open, [classes[`contentShift-${anchor}`]]: open,})}>
-            <Typography type="body1">{'You think water moves fast? You should see ice.'}</Typography>
+            <Typography type="body1">{'Invoice App'}</Typography>
           </main>
           {after}
         </div>
