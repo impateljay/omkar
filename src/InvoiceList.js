@@ -18,6 +18,7 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import FolderIcon from 'material-ui-icons/Folder';
 import DeleteIcon from 'material-ui-icons/Delete';
+import Card, { CardActions, CardContent } from 'material-ui/Card';
 
 const styles = theme => ({
   root: {
@@ -51,18 +52,21 @@ class InteractiveList extends React.Component {
             <Typography type="title" className={classes.title} align='center' justify='center'>
               Invoive List
             </Typography>
-            <div className={classes.demo}>
-              <List >
-                {generate(
-                  <ListItem button>
-                    <ListItemText
-                      primary="Single-line item"
-                      secondary="Secondary text"
-                    />
-                  </ListItem>,
-                )}
-              </List>
-            </div>
+              <Grid container spacing={24}>
+                <Grid item xs={12} md={12}>
+                  <Card className={classes.card} raised='true'>
+                    <CardContent>
+                      <List>
+                        {generate(
+                          <ListItem button>
+                            <ListItemText primary="Single-line item" secondary="Secondary text" />
+                          </ListItem>,
+                        )}
+                      </List>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
           </Grid>
         </Grid>
       </div>

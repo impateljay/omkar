@@ -23,7 +23,6 @@ import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import InvoiceList from './InvoiceList';
-import './Dashboard.css';
 
 const drawerWidth = 240;
 
