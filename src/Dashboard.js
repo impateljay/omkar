@@ -17,6 +17,13 @@ import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import FloatingActionButtons from './FloatingActionButtons'
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Button from 'material-ui/Button';
+import InvoiceList from './InvoiceList';
+import './Dashboard.css';
 
 const drawerWidth = 240;
 
@@ -28,7 +35,7 @@ const styles = theme => ({
   },
   root: {
     width: '100%',
-    height: '100%',
+    height: '100vh',
     // height: 430,
     // marginTop: theme.spacing.unit * 3,
     zIndex: 1,
@@ -117,6 +124,12 @@ const styles = theme => ({
   'contentShift-right': {
     marginRight: 0,
   },
+  card: {
+    backgroundColor: '#3F51B5',
+  },
+  'MuiTypography-headline-80': {
+    color: '#ffffff !important'
+  }
 });
 
 class Dashboard extends React.Component {
@@ -181,7 +194,34 @@ class Dashboard extends React.Component {
           </AppBar>
           {before}
           <main className={classNames(classes.content, classes[`content-${anchor}`], {[classes.contentShift]: open, [classes[`contentShift-${anchor}`]]: open,})}>
-            <Typography type="body1">{'Invoice App'}</Typography>
+            <Grid container spacing={24} align='center' justify='center'>
+              <Grid item xs={6} md={3}>
+                <Card className={classes.card} raised='true'>
+                  <CardContent>
+                    <Typography type="headline" style={{color: '#ffffff'}} gutterBottom>
+                      Invoices
+                    </Typography>
+                    <Typography type="display4" style={{color: '#ffffff'}}>
+                      59
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Card className={classes.card} raised='true'>
+                  <CardContent>
+                    <Typography type="headline" style={{color: '#ffffff'}} gutterBottom>
+                      Customers
+                    </Typography>
+                    <Typography type="display4" style={{color: '#ffffff'}}>
+                      20
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+            <InvoiceList align='center' justify='center'/>
+            <FloatingActionButtons tooltipText='Add Invoice'/>
           </main>
           {after}
         </div>
