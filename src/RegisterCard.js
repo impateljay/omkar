@@ -25,14 +25,14 @@ const centerCardStyle = {
     marginLeft: '-172.5px',
 }
 
-function LoginCard(props) {
+function RegisterCard(props) {
     const {classes} = props;
     return (
         <div>
             <Card raised={true} className={classes.card} style={centerCardStyle}>
                 <CardContent>
                     <Typography type="display1" component="h2" align="center" style={{marginTop: '40px', marginBottom: '20px', color: '#000'}}>
-                        Login
+                        Register
                     </Typography>
                     <TextField
                         id="email"
@@ -50,18 +50,24 @@ function LoginCard(props) {
                         margin="normal"
                         style={{width: '100%'}}
                     />
+                    <TextField
+                        id="confirmPassword"
+                        label="Confirm Password"
+                        className={classes.textField}
+                        type="password"
+                        autoComplete="current-password"
+                        margin="normal"
+                        style={{width: '100%'}}
+                    />
                 </CardContent>
-                <div align='center' justify='center' style={{marginTop: '20px', marginBottom: '20px'}}>
+                <div align='center' justify='center' style={{width: '100%', marginTop: '20px', marginBottom: '20px'}}>
                     <Button raised color="primary" className={classes.button} style={{width: '90%'}}>
-                        Login
+                        Register
                     </Button>
                 </div>
                 <div align='center' justify='center' style={{marginTop: '20px', marginBottom: '20px'}}>
                     <Button dense className={classes.button}>
-                        Forgot your password?
-                    </Button>
-                    <Button dense className={classes.button} onClick = {this.props.handler}>
-                        Create an account
+                        Already have an account?
                     </Button>
                 </div>
             </Card>
@@ -69,8 +75,8 @@ function LoginCard(props) {
     );
 }
 
-LoginCard.propTypes = {
+RegisterCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LoginCard);
+export default withStyles(styles)(RegisterCard);
