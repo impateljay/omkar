@@ -11,7 +11,6 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         float: 'right',
-        margin: 0,
         top: 'auto',
         right: 20,
         bottom: 20,
