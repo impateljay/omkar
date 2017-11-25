@@ -1,12 +1,16 @@
 // @flow weak
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import {withStyles} from 'material-ui/styles';
-import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
+import Card, {CardContent} from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import Input, {InputAdornment, InputLabel} from 'material-ui/Input';
+import {FormControl} from 'material-ui/Form';
+import Visibility from 'material-ui-icons/Visibility';
+import VisibilityOff from 'material-ui-icons/VisibilityOff';
 
 const styles = {
     card: {
@@ -18,65 +22,88 @@ const styles = {
 };
 
 const centerCardStyle = {
-    top: '50%',
-    left: '50%',
+    width: '345px',
+    height: '430px',
     position: 'absolute',
-    marginTop: '-192.5px',
-    marginLeft: '-172.5px',
-}
-
-function RegisterCard(props) {
-    const {classes} = props;
-    return (
-        <div>
-            <Card raised={true} className={classes.card} style={centerCardStyle}>
-                <CardContent>
-                    <Typography type="display1" component="h2" align="center" style={{marginTop: '40px', marginBottom: '20px', color: '#000'}}>
-                        Register
-                    </Typography>
-                    <TextField
-                        id="email"
-                        label="Email"
-                        className={classes.textField}
-                        margin="normal"
-                        style={{width: '100%'}}
-                    />
-                    <TextField
-                        id="password"
-                        label="Password"
-                        className={classes.textField}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                        style={{width: '100%'}}
-                    />
-                    <TextField
-                        id="confirmPassword"
-                        label="Confirm Password"
-                        className={classes.textField}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                        style={{width: '100%'}}
-                    />
-                </CardContent>
-                <div align='center' justify='center' style={{width: '100%', marginTop: '20px', marginBottom: '20px'}}>
-                    <Button raised color="primary" className={classes.button} style={{width: '90%'}}>
-                        Register
-                    </Button>
-                </div>
-                <div align='center' justify='center' style={{marginTop: '20px', marginBottom: '20px'}}>
-                    <Button dense className={classes.button}>
-                        Already have an account?
-                    </Button>
-                </div>
-            </Card>
-        </div>
-    );
-}
-
-RegisterCard.propTypes = {
-    classes: PropTypes.object.isRequired,
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    margin: 'auto',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    overflow: 'auto',
 };
+
+class RegisterCard extends Component {
+    handleChange = prop => event => {
+        this.setState({[prop]: event.target.value});
+    };
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+    };
+    handleClickShowPasssword = () => {
+        this.setState({showPassword: !this.state.showPassword});
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            password: '',
+            showPassword: false,
+        };
+    }
+
+    render() {
+        return (
+            <div>
+                <Card raised={true} className="card" style={centerCardStyle}>
+                    <CardContent>
+                        <Typography type="display1" component="h2" align="center"
+                                    style={{marginTop: '40px', marginBottom: '20px', color: '#000'}}>
+                            Register
+                        </Typography>
+                        <TextField
+                            id="email"
+                            label="Email"
+                            className="textField"
+                            margin="normal"
+                            style={{width: '100%'}}
+                        />
+                        <FormControl className="formControl" style={{width: '100%'}}>
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input
+                                id="password"
+                                type={this.state.showPassword ? 'text' : 'password'}
+                                value={this.state.password}
+                                onChange={this.handleChange('password')}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={this.handleClickShowPasssword}
+                                            onMouseDown={this.handleMouseDownPassword}
+                                        >
+                                            {this.state.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+                    </CardContent>
+                    <div align='center' style={{marginTop: '20px', marginBottom: '20px'}}>
+                        <Button raised color="primary" className="button" style={{width: '90%'}}>
+                            Register
+                        </Button>
+                    </div>
+                    <div align='center' style={{marginTop: '20px', marginBottom: '20px'}}>
+                        <Button dense className="button" onClick={this.props.visibility}>
+                            Already have an account?
+                        </Button>
+                    </div>
+                </Card>
+            </div>
+        );
+    }
+}
 
 export default withStyles(styles)(RegisterCard);
