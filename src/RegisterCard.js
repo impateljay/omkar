@@ -25,7 +25,7 @@ const styles = {
 
 const centerCardStyle = {
     width: '345px',
-    height: '430px',
+    height: '440px',
     position: 'absolute',
     left: 0,
     right: 0,

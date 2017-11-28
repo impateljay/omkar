@@ -19,6 +19,15 @@ import FloatingActionButtons from './FloatingActionButtons'
 import Grid from 'material-ui/Grid';
 import Card, {CardContent} from 'material-ui/Card';
 import InvoiceList from './InvoiceList';
+import CustomerList from './CustomerList';
+import Button from 'material-ui/Button'
+import TextField from 'material-ui/TextField';
+import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
+import fire from './fire';
+import {MenuItem} from 'material-ui/Menu';
+import {FormControl} from 'material-ui/Form';
+import Select from 'material-ui/Select';
+import Input, {InputLabel} from 'material-ui/Input';
 
 const drawerWidth = 240;
 
@@ -30,7 +39,7 @@ const styles = theme => ({
     },
     root: {
         width: '100%',
-        height: '100vh',
+        // height: '100vh',
         // height: 430,
         // marginTop: theme.spacing.unit * 3,
         zIndex: 1,
@@ -124,13 +133,22 @@ const styles = theme => ({
     },
     'MuiTypography-headline-80': {
         color: '#ffffff !important'
-    }
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing.unit * 2,
+    },
 });
 
 class Dashboard extends React.Component {
-    state = {
-        open: false,
-        anchor: 'left',
+    handleDialogAddCustomerClickOpen = () => {
+        this.setState({openAddCustomerDialog: true});
+    };
+    handleDialogAddCustomerRequestClose = () => {
+        this.setState({openAddCustomerDialog: false});
     };
 
     handleDrawerOpen = () => {
@@ -146,6 +164,91 @@ class Dashboard extends React.Component {
             anchor: event.target.value,
         });
     };
+    handleDialogAddInvoiceClickOpen = () => {
+        this.setState({openAddInvoiceDialog: true});
+    };
+    handleDialogAddInvoiceRequestClose = () => {
+        this.setState({openAddInvoiceDialog: false});
+    };
+    createCustomer = () => {
+        if (this.state.customerName.length <= 0) {
+            this.setState({customerNameError: 'Please enter customer name'});
+        } else {
+            this.setState({customerNameError: ''});
+        }
+        if (this.state.customerAddress.length <= 0) {
+            this.setState({customerAddressError: 'Please enter customer address'});
+        } else {
+            this.setState({customerAddressError: ''});
+        }
+        if (this.state.customerName.length > 0 && this.state.customerAddress.length > 0) {
+            this.writeCustomerData(this.state.customerName, this.state.customerAddress, this.state.customerEmail, this.state.customerMobile);
+            this.handleDialogAddCustomerRequestClose()
+        }
+    };
+    createInvoice = () => {
+
+    };
+    handleCustomerNameTextFieldChange = customerName => event => {
+        this.setState({
+            [customerName]: event.target.value,
+        });
+    };
+    handleCustomerAddressTextFieldChange = customerAddress => event => {
+        this.setState({
+            [customerAddress]: event.target.value,
+        });
+    };
+    handleCustomerEmailTextFieldChange = customerEmail => event => {
+        this.setState({
+            [customerEmail]: event.target.value,
+        });
+    };
+    handleCustomerMobileTextFieldChange = customerMobile => event => {
+        this.setState({
+            [customerMobile]: event.target.value,
+        });
+    };
+    writeCustomerData = (customerName, customerAddress, customerEmail, customerMobile) => {
+        const itemsRef = fire.database().ref('customers');
+        const item = {
+            customer_name: customerName,
+            customer_address: customerAddress,
+            customer_email: customerEmail,
+            customer_mobile: customerMobile,
+        };
+        itemsRef.push(item);
+    };
+    customerSelectionChanged = selectedCustomer => event => {
+        this.setState({[selectedCustomer]: event.target.value});
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            anchor: 'left',
+            openAddInvoiceDialog: false,
+            openAddCustomerDialog: false,
+            customerCount: '0',
+            customersList: [],
+            customerName: '',
+            customerAddress: '',
+            customerMobile: '',
+            customerEmail: '',
+            customerNameError: '',
+            customerAddressError: '',
+            selectedCustomer: '',
+        };
+    }
+
+    componentDidMount() {
+        fire.database().ref('customers').on('value', snapshot => {
+            if (snapshot !== null && snapshot.val() !== null && snapshot.numChildren() > 0) {
+                this.setState({customerCount: snapshot.numChildren(), customersList: Object.values(snapshot.val())});
+            }
+        });
+    }
 
     render() {
         const {classes, theme} = this.props;
@@ -199,31 +302,131 @@ class Dashboard extends React.Component {
                         <Grid container spacing={24} align='center' justify='center'>
                             <Grid item xs={6} md={3}>
                                 <Card className={classes.card} raised='true'>
-                                    <CardContent>
-                                        <Typography type="headline" style={{color: '#ffffff'}} gutterBottom>
-                                            Invoices
-                                        </Typography>
-                                        <Typography type="display4" style={{color: '#ffffff'}}>
-                                            59
-                                        </Typography>
-                                    </CardContent>
+                                    <Button className={classes.button} style={{width: '100%'}}>
+                                        <CardContent>
+                                            <Typography type="headline" style={{color: '#ffffff'}} gutterBottom>
+                                                Invoices
+                                            </Typography>
+                                            <Typography type="display4" style={{color: '#ffffff'}}>
+                                                59
+                                            </Typography>
+                                        </CardContent>
+                                    </Button>
                                 </Card>
+                                <Button raised color="accent" className={classes.button} style={{width: '100%'}}
+                                        onClick={this.handleDialogAddInvoiceClickOpen}>
+                                    Create New Invoice
+                                </Button>
                             </Grid>
                             <Grid item xs={6} md={3}>
                                 <Card className={classes.card} raised='true'>
-                                    <CardContent>
-                                        <Typography type="headline" style={{color: '#ffffff'}} gutterBottom>
-                                            Customers
-                                        </Typography>
-                                        <Typography type="display4" style={{color: '#ffffff'}}>
-                                            20
-                                        </Typography>
-                                    </CardContent>
+                                    <Button className={classes.button} style={{width: '100%'}}>
+                                        <CardContent>
+                                            <Typography type="headline" style={{color: '#ffffff'}} gutterBottom>
+                                                Customers
+                                            </Typography>
+                                            <Typography type="display4" style={{color: '#ffffff'}}>
+                                                {this.state.customerCount}
+                                            </Typography>
+                                        </CardContent>
+                                    </Button>
                                 </Card>
+                                <Button raised color="accent" className={classes.button} style={{width: '100%'}}
+                                        onClick={this.handleDialogAddCustomerClickOpen}>
+                                    Add New Customer
+                                </Button>
                             </Grid>
                         </Grid>
-                        <InvoiceList align='center' justify='center'/>
+                        <Grid container>
+                            <Grid item xs={6} md={6}>
+                                <InvoiceList align='center' justify='center'/>
+                            </Grid>
+                            <Grid item xs={6} md={6}>
+                                <CustomerList data={this.state.customersList}/>
+                            </Grid>
+                        </Grid>
                         <FloatingActionButtons tooltipText='Add Invoice'/>
+                        <Dialog open={this.state.openAddCustomerDialog}
+                                onRequestClose={this.handleDialogAddCustomerRequestClose}>
+                            <DialogTitle>Add New Customer</DialogTitle>
+                            <DialogContent>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="name"
+                                    label="Enter Customer Name *"
+                                    type="text"
+                                    helperText={this.state.customerNameError}
+                                    error={this.state.customerNameError}
+                                    onChange={this.handleCustomerNameTextFieldChange('customerName')}
+                                    fullWidth
+                                />
+                                <TextField
+                                    margin="dense"
+                                    id="name"
+                                    label="Enter Customer Address *"
+                                    type="text"
+                                    helperText={this.state.customerAddressError}
+                                    error={this.state.customerAddressError}
+                                    onChange={this.handleCustomerAddressTextFieldChange('customerAddress')}
+                                    fullWidth
+                                />
+                                <TextField
+                                    margin="dense"
+                                    id="name"
+                                    label="Enter Customer Email Address"
+                                    type="email"
+                                    onChange={this.handleCustomerEmailTextFieldChange('customerEmail')}
+                                    fullWidth
+                                />
+                                <TextField
+                                    margin="dense"
+                                    id="name"
+                                    label="Enter Customer Mobile Number"
+                                    type="tel"
+                                    onChange={this.handleCustomerMobileTextFieldChange('customerMobile')}
+                                    fullWidth
+                                />
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.handleDialogAddCustomerRequestClose} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={this.createCustomer} color="primary">
+                                    ADD
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                        <Dialog open={this.state.openAddInvoiceDialog}
+                                onRequestClose={this.handleDialogAddInvoiceRequestClose}>
+                            <DialogTitle>Create New Invoice</DialogTitle>
+                            <DialogContent>
+                                <FormControl className={classes.formControl} fullWidth>
+                                    <InputLabel htmlFor="age-helper">Select Customer</InputLabel>
+                                    <Select
+                                        value={this.state.selectedCustomer}
+                                        onChange={this.customerSelectionChanged('selectedCustomer')}
+                                        input={<Input id="age-helper"/>}
+                                    >
+                                        <MenuItem value="">
+                                            <em>None</em>
+                                        </MenuItem>
+                                        {this.state.customersList.map((item) => {
+                                            return (<MenuItem value={item.customer_name}>
+                                                {item.customer_name}</MenuItem>);
+                                        })}
+                                    </Select>
+                                </FormControl>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.handleDialogAddInvoiceRequestClose} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={this.createInvoice} color="primary">
+                                    Create
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
                     </main>
                     {after}
                 </div>

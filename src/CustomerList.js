@@ -7,11 +7,12 @@ import List, {ListItem, ListItemText,} from 'material-ui/List';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Card, {CardContent} from 'material-ui/Card';
+import fire from './fire'
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        width: '100%'
+        width: '100%',
     },
     demo: {
         background: theme.palette.background.paper,
@@ -21,15 +22,26 @@ const styles = theme => ({
     },
 });
 
-function generate(element) {
-    return [0, 1, 2].map(value =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
+class CustomerList extends React.Component {
+    showCustomersList = () => {
+        return this.state.customersList.map(el => {
+            return <ListItemText primary={el.customer_name} secondary={el.customer_address}/>
+        });
+    };
 
-class InteractiveList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            customersList: [],
+        };
+        fire.database().ref('customers').on('value', snapshot => {
+            // if (snapshot !== null && snapshot.val() !== null && snapshot.numChildren() > 0) {
+            this.setState({customersList: Object.values(snapshot.val())});
+            // }
+            // console.log(this.state.customersList)
+        });
+    }
+
     render() {
         const {classes} = this.props;
 
@@ -38,19 +50,18 @@ class InteractiveList extends React.Component {
                 <Grid container>
                     <Grid item xs={12} md={12}>
                         <Typography type="title" className={classes.title} align='center' justify='center'>
-                            Invoices List
+                            Customers List
                         </Typography>
                         <Grid container spacing={24}>
                             <Grid item xs={12} md={12}>
                                 <Card className={classes.card} raised='true'>
                                     <CardContent>
                                         <List>
-                                            {generate(
-                                                <ListItem button>
-                                                    <ListItemText primary="Single-line item"
-                                                                  secondary="Secondary text"/>
-                                                </ListItem>,
-                                            )}
+                                            {this.state.customersList.map((item) => {
+                                                return (<ListItem button><ListItemText
+                                                    primary={item.customer_name}
+                                                    secondary={item.customer_address}/></ListItem>);
+                                            })}
                                         </List>
                                     </CardContent>
                                 </Card>
@@ -63,8 +74,8 @@ class InteractiveList extends React.Component {
     }
 }
 
-InteractiveList.propTypes = {
+CustomerList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InteractiveList);
+export default withStyles(styles)(CustomerList);
