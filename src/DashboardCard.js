@@ -22,17 +22,13 @@ const styles = theme => ({
 });
 
 class DashboardCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {classes} = this.props;
 
         return (
             <Grid container spacing={24} align='center' justify='center'>
                 <Grid item xs={12} md={6}>
-                    <Card className={classes.card} raised='true'>
+                    <Card className={classes.card} raised>
                         <Button className={classes.button} style={{width: '100%'}}>
                             <CardContent>
                                 <Typography type="headline" gutterBottom>

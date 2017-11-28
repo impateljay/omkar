@@ -16,12 +16,18 @@ const styles = theme => ({
 });
 
 class Invoices extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            invoicesList: [],
+        }
+    }
     render() {
         const {classes} = this.props;
         return (
             <div className={classes.root} style={{height: '100vh'}}>
                 <main className={classes.content}>
-                    <CheckboxList/>
+                    <CheckboxList listToDisplay={this.state.invoicesList} addButtonText="Create New Invoice"/>
                 </main>
             </div>
         );

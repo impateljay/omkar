@@ -11,7 +11,6 @@ import Button from 'material-ui/Button';
 import Delete from 'material-ui-icons/Delete';
 import Add from 'material-ui-icons/Add';
 
-
 const styles = theme => ({
     root: {
         width: '100%',
@@ -31,6 +30,10 @@ const styles = theme => ({
 });
 
 class CheckboxList extends React.Component {
+    deleteSelected = () => {
+        //TODO
+    };
+
     handleToggle = value => () => {
         const currentIndex = this.state.checked.indexOf(value);
         const newChecked = [...this.state.checked];
@@ -44,8 +47,6 @@ class CheckboxList extends React.Component {
         this.setState({
             checked: Object.values(newChecked),
         });
-
-        console.log("checked:" + this.state.checked);
 
         if (newChecked.length > 0) {
             this.setState({
@@ -76,7 +77,7 @@ class CheckboxList extends React.Component {
                     {this.props.addButtonText}
                 </Button>
                 <Button className={classes.button} raised color="accent"
-                        disabled={this.state.deleteButtonDisabledStatus}>
+                        disabled={this.state.deleteButtonDisabledStatus} onClick={this.deleteSelected}>
                     <Delete className={classes.leftIcon}/>
                     Delete
                 </Button>

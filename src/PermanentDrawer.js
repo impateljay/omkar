@@ -73,13 +73,8 @@ const styles = theme => ({
 
 class PermanentDrawer extends React.Component {
     state = {
-        auth: true,
         anchorEl: null,
         componentToDisplay: <Home/>,
-    };
-
-    handleChange = (event, checked) => {
-        this.setState({auth: checked});
     };
 
     handleMenu = event => {
@@ -112,7 +107,7 @@ class PermanentDrawer extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const {auth, anchorEl} = this.state;
+        const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
         return (
             <div className={classes.root} style={{height: '100vh'}}>
