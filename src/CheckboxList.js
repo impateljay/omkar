@@ -39,8 +39,6 @@ const styles = theme => ({
 class CheckboxList extends React.Component {
     deleteSelected = () => {
         Object.values(this.state.checked).map(value => {
-            console.log(value);
-            console.log(value.customer_id);
             fire.database().ref('customers').child(value.customer_id).remove();
         });
     };
@@ -68,8 +66,6 @@ class CheckboxList extends React.Component {
                 deleteButtonDisabledStatus: true,
             });
         }
-
-        console.log(newChecked);
     };
     handleCustomerNameTextFieldChange = customerName => event => {
         this.setState({
