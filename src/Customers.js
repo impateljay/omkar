@@ -26,8 +26,9 @@ class Customers extends React.Component {
 
     componentDidMount() {
         fire.database().ref('customers').on('value', snapshot => {
+            console.log(snapshot.val());
             if (snapshot !== null && snapshot.val() !== null && snapshot.numChildren() > 0) {
-                this.setState({customersList: Object.values(snapshot.val())});
+                this.setState({customersList: snapshot.val()});
             }
         });
     }
