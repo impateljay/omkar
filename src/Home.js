@@ -46,10 +46,12 @@ class Home extends React.Component {
                 <main className={classes.content}>
                     <Grid container spacing={24}>
                         <Grid item xs={12} sm={6}>
-                            <DashboardCard title="Invoices" value={this.state.invoicesCount}/>
+                            <DashboardCard title="Invoices" value={this.state.invoicesCount}
+                                           handleClick={this.props.invoice}/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <DashboardCard title="Customers" value={this.state.customersCount}/>
+                            <DashboardCard title="Customers" value={this.state.customersCount}
+                                           handleClick={this.props.customer}/>
                         </Grid>
                     </Grid>
                 </main>

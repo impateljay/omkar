@@ -183,20 +183,11 @@ class CheckboxList extends React.Component {
                     <div>
                         <List>
                             {Object.values(this.props.listToDisplay).map(value => (
-                                <ListItem
-                                    key={value}
-                                    dense
-                                    button
-                                    onClick={this.handleToggle(value)}
-                                    className={classes.listItem}
-                                >
-                                    <Checkbox
-                                        checked={this.state.checked.indexOf(value) !== -1}
-                                        tabIndex={-1}
-                                        disableRipple
-                                    />
-                                    <ListItemText primary={value.customer_name}
-                                                  secondary={value.customer_address}/>
+                                <ListItem key={value} dense button onClick={this.handleToggle(value)}
+                                          className={classes.listItem}>
+                                    <Checkbox checked={this.state.checked.indexOf(value) !== -1} tabIndex={-1}
+                                              disableRipple/>
+                                    <ListItemText primary={value.customer_name} secondary={value.customer_address}/>
                                     <ListItemSecondaryAction>
                                         <IconButton aria-label="Comments">
                                             <CommentIcon/>
@@ -210,51 +201,26 @@ class CheckboxList extends React.Component {
                                 onRequestClose={this.handleDialogAddCustomerRequestClose}>
                             <DialogTitle>Add New Customer</DialogTitle>
                             <DialogContent>
-                                <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
-                                    label="Enter Customer Name *"
-                                    type="text"
-                                    helperText={this.state.customerNameError}
-                                    error={this.state.customerNameError}
-                                    onChange={this.handleCustomerNameTextFieldChange('customerName')}
-                                    fullWidth
-                                />
-                                <TextField
-                                    margin="dense"
-                                    id="name"
-                                    label="Enter Customer Address *"
-                                    type="text"
-                                    helperText={this.state.customerAddressError}
-                                    error={this.state.customerAddressError}
-                                    onChange={this.handleCustomerAddressTextFieldChange('customerAddress')}
-                                    fullWidth
-                                />
-                                <TextField
-                                    margin="dense"
-                                    id="name"
-                                    label="Enter Customer Email Address"
-                                    type="email"
-                                    onChange={this.handleCustomerEmailTextFieldChange('customerEmail')}
-                                    fullWidth
-                                />
-                                <TextField
-                                    margin="dense"
-                                    id="name"
-                                    label="Enter Customer Mobile Number"
-                                    type="tel"
-                                    onChange={this.handleCustomerMobileTextFieldChange('customerMobile')}
-                                    fullWidth
-                                />
+                                <TextField autoFocus margin="dense" id="name" label="Enter Customer Name *" type="text"
+                                           helperText={this.state.customerNameError}
+                                           error={this.state.customerNameError.trim() !== ''}
+                                           onChange={this.handleCustomerNameTextFieldChange('customerName')} fullWidth/>
+                                <TextField margin="dense" id="name" label="Enter Customer Address *" type="text"
+                                           helperText={this.state.customerAddressError}
+                                           error={this.state.customerAddressError.trim() !== ''}
+                                           onChange={this.handleCustomerAddressTextFieldChange('customerAddress')}
+                                           fullWidth/>
+                                <TextField margin="dense" id="name" label="Enter Customer Email Address" type="email"
+                                           onChange={this.handleCustomerEmailTextFieldChange('customerEmail')}
+                                           fullWidth/>
+                                <TextField margin="dense" id="name" label="Enter Customer Mobile Number" type="tel"
+                                           onChange={this.handleCustomerMobileTextFieldChange('customerMobile')}
+                                           fullWidth/>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={this.handleDialogAddCustomerRequestClose} color="primary">
-                                    Cancel
-                                </Button>
-                                <Button onClick={this.createCustomer} color="primary">
-                                    ADD
-                                </Button>
+                                <Button onClick={this.handleDialogAddCustomerRequestClose}
+                                        color="primary">Cancel</Button>
+                                <Button onClick={this.createCustomer} color="primary">ADD</Button>
                             </DialogActions>
                         </Dialog>
                         <Dialog open={this.state.openAddInvoiceDialog}
@@ -263,11 +229,9 @@ class CheckboxList extends React.Component {
                             <DialogContent>
                                 <FormControl className={classes.formControl} fullWidth>
                                     <InputLabel htmlFor="age-helper">Select Customer</InputLabel>
-                                    <Select
-                                        value={this.state.selectedCustomer}
-                                        onChange={this.customerSelectionChanged('selectedCustomer')}
-                                        input={<Input id="age-helper"/>}
-                                    >
+                                    <Select value={this.state.selectedCustomer}
+                                            onChange={this.customerSelectionChanged('selectedCustomer')}
+                                            input={<Input id="age-helper"/>}>
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
@@ -279,12 +243,9 @@ class CheckboxList extends React.Component {
                                 </FormControl>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={this.handleDialogAddInvoiceRequestClose} color="primary">
-                                    Cancel
-                                </Button>
-                                <Button onClick={this.createInvoice} color="primary">
-                                    Create
-                                </Button>
+                                <Button onClick={this.handleDialogAddInvoiceRequestClose}
+                                        color="primary">Cancel</Button>
+                                <Button onClick={this.createInvoice} color="primary">Create</Button>
                             </DialogActions>
                         </Dialog>
                     </div>

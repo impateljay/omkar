@@ -29,7 +29,7 @@ class DashboardCard extends React.Component {
             <Grid container spacing={24} align='center' justify='center'>
                 <Grid item xs={12} md={6}>
                     <Card className={classes.card} raised>
-                        <Button className={classes.button} style={{width: '100%'}}>
+                        <Button className={classes.button} style={{width: '100%'}} onClick={this.props.handleClick}>
                             <CardContent>
                                 <Typography type="headline" gutterBottom>
                                     {this.props.title}

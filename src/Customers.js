@@ -28,6 +28,8 @@ class Customers extends React.Component {
         fire.database().ref('customers').on('value', snapshot => {
             if (snapshot !== null && snapshot.val() !== null && snapshot.numChildren() > 0) {
                 this.setState({customersList: snapshot.val()});
+            } else {
+                this.setState({customersList: []});
             }
         });
     }

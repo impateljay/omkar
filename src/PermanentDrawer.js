@@ -72,23 +72,10 @@ const styles = theme => ({
 });
 
 class PermanentDrawer extends React.Component {
-    state = {
-        anchorEl: null,
-        componentToDisplay: <Home/>,
-    };
-
-    handleMenu = event => {
-        this.setState({anchorEl: event.currentTarget});
-    };
-
-    handleRequestClose = () => {
-        this.setState({anchorEl: null});
-    };
-
     handleDrawerItemCliked = component => event => {
         if (component === 'home') {
             this.setState({
-                componentToDisplay: <Home/>
+                componentToDisplay: <Home customer={this.navigateToCustomers} invoice={this.navigateToInvoices}/>
             });
         } else if (component === 'customers') {
             this.setState({
@@ -104,6 +91,34 @@ class PermanentDrawer extends React.Component {
             });
         }
     };
+
+    handleMenu = event => {
+        this.setState({anchorEl: event.currentTarget});
+    };
+
+    handleRequestClose = () => {
+        this.setState({anchorEl: null});
+    };
+    navigateToCustomers = () => {
+        this.setState({
+            componentToDisplay: <Customers/>
+        });
+    };
+    navigateToInvoices = () => {
+        this.setState({
+            componentToDisplay: <Invoices/>
+        });
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            anchorEl: null,
+            componentToDisplay: <Home customer={this.navigateToCustomers} invoice={this.navigateToInvoices}/>,
+        };
+        this.navigateToCustomers = this.navigateToCustomers.bind(this);
+        this.navigateToInvoices = this.navigateToInvoices.bind(this);
+    }
 
     render() {
         const {classes} = this.props;
