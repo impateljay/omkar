@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91f3e705-7504-47c1-b288-b19644c20705" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/BasicTable.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/FullScreenDialog.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="$PROJECT_DIR$/src/CheckboxList.js" afterPath="$PROJECT_DIR$/src/CheckboxList.js" />
-      <change beforePath="$PROJECT_DIR$/src/Profile.js" afterPath="$PROJECT_DIR$/src/Profile.js" />
+      <change beforePath="$PROJECT_DIR$/src/LoginCard.js" afterPath="$PROJECT_DIR$/src/LoginCard.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginCard.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginCard.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/LoginCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-587">
-              <caret line="68" column="33" lean-forward="false" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
+            <state relative-caret-position="305">
+              <caret line="161" column="26" lean-forward="true" selection-start-line="161" selection-start-column="26" selection-end-line="161" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -68,20 +63,19 @@
         <entry file="file://$PROJECT_DIR$/src/CheckboxList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2008">
-              <caret line="54" column="5" lean-forward="false" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+              <caret line="53" column="5" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#61#87#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasicTable.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BasicTable.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BasicTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="162" column="71" lean-forward="false" selection-start-line="162" selection-start-column="71" selection-end-line="162" selection-end-column="71" />
+            <state relative-caret-position="538">
+              <caret line="162" column="56" lean-forward="true" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#61#87#0" expanded="true" />
@@ -94,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/src/FullScreenDialog.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" column="40" lean-forward="false" selection-start-line="3" selection-start-column="40" selection-end-line="12" selection-end-column="50" />
+              <caret line="12" column="50" lean-forward="false" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -105,9 +99,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="426">
               <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-              <folding>
-                <element signature="e#61#87#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -150,6 +142,7 @@
       <find>CustomerList</find>
       <find>BasicTable</find>
       <find>.map</find>
+      <find>crea</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -178,7 +171,6 @@
         <option value="$PROJECT_DIR$/src/RegisterCard.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Invoices.js" />
-        <option value="$PROJECT_DIR$/src/LoginCard.js" />
         <option value="$PROJECT_DIR$/src/Customers.js" />
         <option value="$PROJECT_DIR$/src/PermanentDrawer.js" />
         <option value="$PROJECT_DIR$/src/Home.js" />
@@ -188,6 +180,7 @@
         <option value="$PROJECT_DIR$/src/FullScreenDialog.js" />
         <option value="$PROJECT_DIR$/src/CheckboxList.js" />
         <option value="$PROJECT_DIR$/src/BasicTable.js" />
+        <option value="$PROJECT_DIR$/src/LoginCard.js" />
       </list>
     </option>
   </component>
@@ -300,7 +293,7 @@
       <workItem from="1512479626815" duration="43000" />
       <workItem from="1513766173812" duration="2029000" />
       <workItem from="1513854998524" duration="2110000" />
-      <workItem from="1514013270611" duration="20635000" />
+      <workItem from="1514013270611" duration="20786000" />
     </task>
     <task id="LOCAL-00001" summary="Change card on button click&#10;implemented new password input text field">
       <created>1511643944822</created>
@@ -337,11 +330,18 @@
       <option name="project" value="LOCAL" />
       <updated>1512479654565</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="initial commit">
+      <created>1514055154592</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1514055154592</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89742000" />
+    <option name="totallyTimeSpent" value="89893000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="810" extended-state="6" />
@@ -376,6 +376,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Change card on button click&#10;implemented new password input text field" />
     <MESSAGE value="initial commit" />
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
@@ -693,21 +694,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Profile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="426">
           <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-          <folding>
-            <element signature="e#61#87#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -722,15 +713,7 @@
     <entry file="file://$PROJECT_DIR$/src/FullScreenDialog.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="40" lean-forward="false" selection-start-line="3" selection-start-column="40" selection-end-line="12" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LoginCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-587">
-          <caret line="68" column="33" lean-forward="false" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
+          <caret line="12" column="50" lean-forward="false" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -754,7 +737,17 @@
     <entry file="file://$PROJECT_DIR$/src/CheckboxList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2008">
-          <caret line="54" column="5" lean-forward="false" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+          <caret line="53" column="5" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BasicTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="162" column="56" lean-forward="true" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#61#87#0" expanded="true" />
@@ -762,14 +755,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BasicTable.js">
+    <entry file="file://$PROJECT_DIR$/src/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="162" column="71" lean-forward="false" selection-start-line="162" selection-start-column="71" selection-end-line="162" selection-end-column="71" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#61#87#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoginCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="161" column="26" lean-forward="true" selection-start-line="161" selection-start-column="26" selection-end-line="161" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

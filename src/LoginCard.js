@@ -156,9 +156,9 @@ class LoginCard extends Component {
                         <Button dense className="button">
                             Forgot your password?
                         </Button>
-                        <Button dense className="button" onClick={this.props.visibility}>
-                            Create an account
-                        </Button>
+                        {/*<Button dense className="button" onClick={this.props.visibility}>*/}
+                        {/*Create an account*/}
+                        {/*</Button>*/}
                     </div>
                     <Snackbar
                         anchorOrigin={{
