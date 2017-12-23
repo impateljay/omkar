@@ -17,6 +17,12 @@ import Input, {InputLabel} from 'material-ui/Input';
 import {FormControl} from 'material-ui/Form';
 import Select from 'material-ui/Select';
 import {MenuItem} from 'material-ui/Menu';
+import BasicTable from './BasicTable';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import CloseIcon from 'material-ui-icons/Close';
+import Slide from 'material-ui/transitions/Slide';
 
 const styles = theme => ({
     root: {
@@ -34,9 +40,33 @@ const styles = theme => ({
     rightIcon: {
         marginLeft: theme.spacing.unit,
     },
+    appBar: {
+        position: 'relative',
+    },
+    flex: {
+        flex: 1,
+    },
+    formControl: {
+        marginLeft: theme.spacing.unit * 2,
+        marginRight: theme.spacing.unit * 2,
+        marginBottom: theme.spacing.unit * 2,
+        maxWidth: 360,
+    }
 });
 
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+}
+
 class CheckboxList extends React.Component {
+    handleAddButtonClickOpen = () => {
+        if (this.props.addButtonText === 'Create New Invoice') {
+            this.handleDialogAddInvoiceClickOpen();
+        } else {
+            this.handleDialogAddCustomerClickOpen();
+        }
+    };
+
     deleteSelected = () => {
         Object.values(this.state.checked).map(value => {
             fire.database().ref('customers').child(value.customer_id).remove();
@@ -102,6 +132,14 @@ class CheckboxList extends React.Component {
     customerSelectionChanged = selectedCustomer => event => {
         this.setState({[selectedCustomer]: event.target.value});
     };
+    handleDialogAddInvoiceClickOpen = () => {
+        fire.database().ref('customers').on('value', snapshot => {
+            if (snapshot !== null && snapshot.val() !== null && snapshot.numChildren() > 0) {
+                this.setState({customersList: Object.values(snapshot.val())});
+                this.setState({openAddInvoiceDialog: true});
+            }
+        });
+    };
     handleDialogAddCustomerClickOpen = () => {
         this.setState({openAddCustomerDialog: true});
     };
@@ -119,27 +157,8 @@ class CheckboxList extends React.Component {
             anchor: event.target.value,
         });
     };
-    handleDialogAddInvoiceClickOpen = () => {
-        this.setState({openAddInvoiceDialog: true});
-    };
-    handleDialogAddInvoiceRequestClose = () => {
+    handleClose = () => {
         this.setState({openAddInvoiceDialog: false});
-    };
-    createCustomer = () => {
-        if (this.state.customerName.length <= 0) {
-            this.setState({customerNameError: 'Please enter customer name'});
-        } else {
-            this.setState({customerNameError: ''});
-        }
-        if (this.state.customerAddress.length <= 0) {
-            this.setState({customerAddressError: 'Please enter customer address'});
-        } else {
-            this.setState({customerAddressError: ''});
-        }
-        if (this.state.customerName.length > 0 && this.state.customerAddress.length > 0) {
-            this.writeCustomerData(this.state.customerName, this.state.customerAddress, this.state.customerEmail, this.state.customerMobile);
-            this.handleDialogAddCustomerRequestClose()
-        }
     };
 
     constructor(props) {
@@ -163,6 +182,22 @@ class CheckboxList extends React.Component {
         };
         this.handleToggle = this.handleToggle.bind(this);
     }
+    createCustomer = () => {
+        if (this.state.customerName.length <= 0) {
+            this.setState({customerNameError: 'Please enter customer name'});
+        } else {
+            this.setState({customerNameError: ''});
+        }
+        if (this.state.customerAddress.length <= 0) {
+            this.setState({customerAddressError: 'Please enter customer address'});
+        } else {
+            this.setState({customerAddressError: ''});
+        }
+        if (this.state.customerName.length > 0 && this.state.customerAddress.length > 0) {
+            this.writeCustomerData(this.state.customerName, this.state.customerAddress, this.state.customerEmail, this.state.customerMobile);
+            this.handleDialogAddCustomerRequestClose()
+        }
+    };
 
     render() {
         const {classes} = this.props;
@@ -170,7 +205,7 @@ class CheckboxList extends React.Component {
         return (
             <div>
                 <Button className={classes.button} raised color="primary"
-                        onClick={this.handleDialogAddCustomerClickOpen}>
+                        onClick={this.handleAddButtonClickOpen}>
                     <Add className={classes.leftIcon}/>
                     {this.props.addButtonText}
                 </Button>
@@ -223,31 +258,43 @@ class CheckboxList extends React.Component {
                                 <Button onClick={this.createCustomer} color="primary">ADD</Button>
                             </DialogActions>
                         </Dialog>
-                        <Dialog open={this.state.openAddInvoiceDialog}
-                                onRequestClose={this.handleDialogAddInvoiceRequestClose}>
-                            <DialogTitle>Create New Invoice</DialogTitle>
-                            <DialogContent>
-                                <FormControl className={classes.formControl} fullWidth>
-                                    <InputLabel htmlFor="age-helper">Select Customer</InputLabel>
-                                    <Select value={this.state.selectedCustomer}
-                                            onChange={this.customerSelectionChanged('selectedCustomer')}
-                                            input={<Input id="age-helper"/>}>
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
-                                        {this.state.customersList.map((item) => {
-                                            return (<MenuItem value={item.customer_name}>
-                                                {item.customer_name}</MenuItem>);
-                                        })}
-                                    </Select>
-                                </FormControl>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={this.handleDialogAddInvoiceRequestClose}
-                                        color="primary">Cancel</Button>
-                                <Button onClick={this.createInvoice} color="primary">Create</Button>
-                            </DialogActions>
+
+                        <Dialog
+                            fullScreen
+                            open={this.state.openAddInvoiceDialog}
+                            onRequestClose={this.handleClose}
+                            transition={Transition}
+                        >
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                    <IconButton color="contrast" onClick={this.handleClose} aria-label="Close">
+                                        <CloseIcon/>
+                                    </IconButton>
+                                    <Typography type="title" color="inherit" className={classes.flex}>
+                                        Create New Invoice
+                                    </Typography>
+                                    <Button color="contrast" onClick={this.handleClose}>
+                                        save
+                                    </Button>
+                                </Toolbar>
+                            </AppBar>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel htmlFor="customer">Select Customer</InputLabel>
+                                <Select value={this.state.selectedCustomer}
+                                        onChange={this.customerSelectionChanged('selectedCustomer')}
+                                        input={<Input id="customer"/>}>
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {this.state.customersList.map((item) => {
+                                        return (<MenuItem value={item.customer_name}>
+                                            {item.customer_name}</MenuItem>);
+                                    })}
+                                </Select>
+                            </FormControl>
+                            <BasicTable/>
                         </Dialog>
+
                     </div>
                 </div>
             </div>

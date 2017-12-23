@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import fire from "./fire";
 
 const styles = theme => ({
     root: {
@@ -16,13 +17,19 @@ const styles = theme => ({
 });
 
 class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: fire.auth().currentUser.email,
+        };
+    }
     render() {
         const {classes} = this.props;
         return (
             <div className={classes.root} style={{height: '100vh'}}>
                 <main className={classes.content}>
                     <Typography type="display1" gutterBottom>
-                        Welcome to Omkar Electricals
+                        Welcome {this.state.email} to Omkar Electricals
                     </Typography>
                 </main>
             </div>
